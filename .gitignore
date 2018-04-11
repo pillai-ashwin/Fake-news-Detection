@@ -1,3 +1,5 @@
+__pycache__
 datasets
 .DS_Store
 .vscode
+tmp_tensorflow

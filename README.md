@@ -23,5 +23,6 @@ The file structure is the following
 |   +-- kaggleData
 |       +-- train.csv
 |       +-- test.csv
++-- tmp_tensorflow
 +-- *.py
 ```

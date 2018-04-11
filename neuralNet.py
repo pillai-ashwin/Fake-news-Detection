@@ -9,10 +9,11 @@ import numpy as np
 import tensorflow as tf
 from getEmbeddings import getEmbeddings
 
-IN_DIM = 3
+IN_DIM = 300
 CLASS_NUM = 2
-LEARN_RATE = 0.001
-TRAIN_STEP = 20000
+LEARN_RATE = 0.0001
+TRAIN_STEP = 10000
+tensorflow_tmp = "tmp_tensorflow/one_hidden_layer"
 
 def dummy_input_fn():
     return np.array([1.0] * IN_DIM)
@@ -24,7 +25,7 @@ def model_fn(features, labels, mode):
     # Input layer
     input_layer = tf.reshape(features["x"], [-1, IN_DIM])
     # Dense layer
-    dense1 = tf.layers.dense(inputs=input_layer, units=10, \
+    dense1 = tf.layers.dense(inputs=input_layer, units=300, \
         activation=tf.nn.relu)
     # Dropout layer
     dropout1 = tf.layers.dropout(inputs=dense1, rate=0.4, \
@@ -83,13 +84,14 @@ def main():
     '''
 
     # Get the training and testing data from getEmbeddings
-    train_data, test_data, train_labels, test_labels = \
+    train_data, eval_data, train_labels, eval_labels = \
         getEmbeddings("datasets/kaggleData/train.csv")
     train_labels = train_labels.reshape((-1, 1))
-    test_labels = test_labels.reshape((-1, 1))
+    eval_labels = eval_labels.reshape((-1, 1))
 
     # Create the Estimator
-    classifier = tf.estimator.Estimator(model_fn=model_fn)
+    classifier = \
+        tf.estimator.Estimator(model_fn=model_fn, model_dir=tensorflow_tmp)
 
     # Setup logging hook for prediction
     tensors_to_log = {"probabilities": "softmax_tensor"}
@@ -100,12 +102,12 @@ def main():
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
         x={"x": train_data},
         y=train_labels,
-        batch_size=100,
+        batch_size=50,
         num_epochs=None,
         shuffle=True)
     classifier.train(
         input_fn=train_input_fn,
-        steps=20000,
+        steps=TRAIN_STEP,
         hooks=[logging_hook])
 
     # Evaluate the model and print results
