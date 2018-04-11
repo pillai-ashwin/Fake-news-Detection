@@ -7,10 +7,12 @@ The neural net classifier
 
 import numpy as np
 import tensorflow as tf
+from getEmbeddings import getEmbeddings
 
 IN_DIM = 3
 CLASS_NUM = 2
 LEARN_RATE = 0.001
+TRAIN_STEP = 20000
 
 def dummy_input_fn():
     return np.array([1.0] * IN_DIM)
@@ -65,6 +67,7 @@ def main():
     Load the training and testing data
     """
     # Generate the dummy training and testing data
+    '''
     DUPLICATION = 250
     DATA_TYPE = 4
     data = []
@@ -77,6 +80,13 @@ def main():
             np.ones((DATA_TYPE * DUPLICATION) // 2))).astype(np.int32)
     eval_data = train_data
     eval_labels = train_labels
+    '''
+
+    # Get the training and testing data from getEmbeddings
+    train_data, test_data, train_labels, test_labels = \
+        getEmbeddings("datasets/kaggleData/train.csv")
+    train_labels = train_labels.reshape((-1, 1))
+    test_labels = test_labels.reshape((-1, 1))
 
     # Create the Estimator
     classifier = tf.estimator.Estimator(model_fn=model_fn)

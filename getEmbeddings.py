@@ -55,8 +55,8 @@ def getEmbeddings(path,vector_dimension=300):
     train_size = len(xtr)
     test_size = len(xte)
 
-    text_train_arrays = np.zeros((train_size, Text_INPUT_DIM))
-    text_test_arrays = np.zeros((test_size, Text_INPUT_DIM))
+    text_train_arrays = np.zeros((train_size, vector_dimension))
+    text_test_arrays = np.zeros((test_size, vector_dimension))
 
     for i in range(train_size):
         text_train_arrays[i] = text_model.docvecs['Text_' + str(i)]
