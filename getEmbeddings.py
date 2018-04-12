@@ -4,7 +4,6 @@ import numpy as np
 import re
 import string
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from gensim.models import Doc2Vec
 from gensim.models.doc2vec import LabeledSentence
 from gensim import utils
@@ -50,20 +49,22 @@ def getEmbeddings(path,vector_dimension=300):
     text_model.build_vocab(x)
     text_model.train(x, total_examples=text_model.corpus_count, epochs=text_model.iter)
 
-    xtr, xte, ytr, yte = train_test_split(x, y, test_size=0.3, random_state=42)
-
-    train_size = len(xtr)
-    test_size = len(xte)
+    train_size = int(0.8 * len(x))
+    test_size = len(x) - train_size
 
     text_train_arrays = np.zeros((train_size, vector_dimension))
     text_test_arrays = np.zeros((test_size, vector_dimension))
+    train_labels = np.zeros(train_size)
+    test_labels = np.zeros(test_size)
 
     for i in range(train_size):
         text_train_arrays[i] = text_model.docvecs['Text_' + str(i)]
+        train_labels[i] = y[i]
 
     j = 0
     for i in range(train_size, train_size + test_size):
         text_test_arrays[j] = text_model.docvecs['Text_' + str(i)]
+        test_labels[j] = y[i]
         j = j + 1
 
-    return text_train_arrays, text_test_arrays, ytr, yte
+    return text_train_arrays, text_test_arrays, train_labels, test_labels

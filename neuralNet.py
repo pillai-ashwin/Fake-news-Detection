@@ -12,8 +12,8 @@ from getEmbeddings import getEmbeddings
 IN_DIM = 300
 CLASS_NUM = 2
 LEARN_RATE = 0.0001
-TRAIN_STEP = 10000
-tensorflow_tmp = "tmp_tensorflow/one_hidden_layer"
+TRAIN_STEP = 20000
+tensorflow_tmp = "tmp_tensorflow/two_layer"
 
 def dummy_input_fn():
     return np.array([1.0] * IN_DIM)
@@ -24,14 +24,20 @@ def model_fn(features, labels, mode):
     """
     # Input layer
     input_layer = tf.reshape(features["x"], [-1, IN_DIM])
-    # Dense layer
+    # Dense layer1
     dense1 = tf.layers.dense(inputs=input_layer, units=300, \
         activation=tf.nn.relu)
-    # Dropout layer
+    # Dropout layer1
     dropout1 = tf.layers.dropout(inputs=dense1, rate=0.4, \
         training=(mode == tf.estimator.ModeKeys.TRAIN))
+    # Dense layer2
+    dense2 = tf.layers.dense(inputs=dropout1, units=300, \
+        activation=tf.nn.relu)
+    # Dropout layer2
+    dropout2 = tf.layers.dropout(inputs=dense2, rate=0.4, \
+        training=(mode == tf.estimator.ModeKeys.TRAIN))
     # Logits layer
-    logits = tf.layers.dense(inputs=dropout1, units=CLASS_NUM)
+    logits = tf.layers.dense(inputs=dropout2, units=CLASS_NUM)
 
     # prediction result in PREDICT and EVAL phases
     predictions = {
@@ -86,17 +92,18 @@ def main():
     # Get the training and testing data from getEmbeddings
     train_data, eval_data, train_labels, eval_labels = \
         getEmbeddings("datasets/kaggleData/train.csv")
-    train_labels = train_labels.reshape((-1, 1))
-    eval_labels = eval_labels.reshape((-1, 1))
+    train_labels = train_labels.reshape((-1, 1)).astype(np.int32)
+    eval_labels = eval_labels.reshape((-1, 1)).astype(np.int32)
 
     # Create the Estimator
     classifier = \
         tf.estimator.Estimator(model_fn=model_fn, model_dir=tensorflow_tmp)
 
     # Setup logging hook for prediction
+    tf.logging.set_verbosity(tf.logging.INFO)
     tensors_to_log = {"probabilities": "softmax_tensor"}
     logging_hook = tf.train.LoggingTensorHook(
-        tensors=tensors_to_log, every_n_iter=50)
+        tensors=tensors_to_log, every_n_iter=200)
 
     # Train the model
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
