@@ -36,8 +36,8 @@ The file structure is the following
 
 ## Try It Out
 
-1. Clone the repo to your local machine-
-`git clone git://github.com/rockash/Fake-news-Detection`
+1. Clone the repo to your local machine-  
+`git clone git://github.com/rockash/Fake-news-Detection`  
 `cd Fake-news-Detection`
 
 2. Make sure you have all the dependencies installed-
@@ -52,7 +52,8 @@ The file structure is the following
     * `>>> import nltk`
     * `>>> nltk.download()`
     
-3. 
+3. You're good to go now-  
+`python neuralNet.py`
 
 ## References
   * [Fake news detection: A Data Mining perspective](https://arxiv.org/pdf/1708.01967.pdf)
