@@ -15,9 +15,8 @@ The file structure is the following
 .
 |
 +-- datasets
-|   +-- kaggleData
-|       +-- train.csv
-|       +-- test.csv
+|   +-- train.csv
+|   +-- test.csv
 +-- tmp_tensorflow
 +-- *.py
 ```
@@ -26,3 +25,4 @@ The file structure is the following
   * [Fake news detection: A Data Mining perspective](https://arxiv.org/pdf/1708.01967.pdf)
   * [Fake News Identification - Stanford CS229](http://cs229.stanford.edu/proj2017/final-reports/5244348.pdf)
   * [B.S. Detector](https://github.com/bs-detector/bs-detector)
+  * [Datasets from Kaggle](https://www.kaggle.com/c/fake-news/data)
