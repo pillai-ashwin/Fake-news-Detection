@@ -3,11 +3,6 @@
 ## Overview  
 The topic of fake news detection on social media has recently attracted tremendous attention. The basic countermeasure of comparing websites against a list of labeled fake news sources is inflexible, and so a machine learning approach is desirable.  Our project aims to use Natural Language Processing to detect fake news directly, based on the text content of news articles. 
 
-## Motivation
-  * [Fake news detection: A Data Mining perspective](https://arxiv.org/pdf/1708.01967.pdf)
-  * [Fake News Identification - Stanford CS229](http://cs229.stanford.edu/proj2017/final-reports/5244348.pdf)
-  * [B.S. Detector](https://github.com/selfagency/bs-detector)
-
 ## Problem Definition
 Develop a machine learning program to identify when a news source may be producing fake news. We aim to use a corpus of labeled real and fake new articles to build a classifier that can make decisions about information based on the content from the corpus. The model will focus on identifying fake news sources, based on multiple articles originating from a source.  Once a source is labeled as a producer of fake news, we can predict with high confidence that any future articles from that source will also be fake news.  Focusing on sources widens our article misclassification tolerance, because we will have multiple data points coming from each source.  
 
@@ -26,3 +21,8 @@ The file structure is the following
 +-- tmp_tensorflow
 +-- *.py
 ```
+
+## References
+  * [Fake news detection: A Data Mining perspective](https://arxiv.org/pdf/1708.01967.pdf)
+  * [Fake News Identification - Stanford CS229](http://cs229.stanford.edu/proj2017/final-reports/5244348.pdf)
+  * [B.S. Detector](https://github.com/bs-detector/bs-detector)
