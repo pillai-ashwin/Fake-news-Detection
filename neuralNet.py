@@ -15,13 +15,13 @@ LEARN_RATE = 0.0001
 TRAIN_STEP = 20000
 tensorflow_tmp = "tmp_tensorflow/two_layer"
 
+
 def dummy_input_fn():
     return np.array([1.0] * IN_DIM)
 
+
 def model_fn(features, labels, mode):
-    """
-    The model function for tf.Estimator
-    """
+    """The model function for tf.Estimator"""
     # Input layer
     input_layer = tf.reshape(features["x"], [-1, IN_DIM])
     # Dense layer1
@@ -69,6 +69,7 @@ def model_fn(features, labels, mode):
     return tf.estimator.EstimatorSpec(\
         mode=mode, loss=loss, eval_metric_ops=eval_metric_ops)
 
+
 def main():
     """
     Load the training and testing data
@@ -91,7 +92,7 @@ def main():
 
     # Get the training and testing data from getEmbeddings
     train_data, eval_data, train_labels, eval_labels = \
-        getEmbeddings("datasets/kaggleData/train.csv")
+        getEmbeddings("datasets/train.csv")
     train_labels = train_labels.reshape((-1, 1)).astype(np.int32)
     eval_labels = eval_labels.reshape((-1, 1)).astype(np.int32)
 

@@ -9,6 +9,7 @@ from gensim.models.doc2vec import LabeledSentence
 from gensim import utils
 from nltk.corpus import stopwords
 
+
 def textClean(text):
     text = re.sub(r"[^A-Za-z0-9^,!.\/'+-=]", " ", text)
     text = text.lower().split()
@@ -17,10 +18,12 @@ def textClean(text):
     text = " ".join(text)
     return (text)
 
+
 def cleanup(text):
     text = textClean(text)
     text = text.translate(str.maketrans("", "", string.punctuation))
     return text
+
 
 def constructLabeledSentences(data):
     sentences = []
