@@ -30,7 +30,10 @@ The file structure is the following
 +-- datasets
 |   +-- train.csv
 |   +-- test.csv
-+-- tmp_tensorflow
++-- images
+|   +-- svm-cm.png
+|   +-- naive-bayes-cm.png
+|   +-- neural-net-tf.png
 +-- *.py
 ```
 
@@ -53,7 +56,18 @@ The file structure is the following
        * `>>> nltk.download()`}
     
 3. You're good to go now-  
-`> python neuralNet.py`
+`> python svm.py`
+
+## Comparing Accuracies of Models
+
+| Model                     | Accuracy     |
+|:-------------------------:|:------------:|
+| Naive Bayes               | 72.94%       |
+| SVM                       | 88.42%       |
+| Neural Network with TF    | 81.42%       |
+| Neural Network with Keras | 92.62%       |
+
+## Confusion Matrices
 
 ## References
   * [Fake news detection: A Data Mining perspective](https://arxiv.org/pdf/1708.01967.pdf)
