@@ -34,13 +34,14 @@ The file structure is the following
 |   +-- svm-cm.png
 |   +-- naive-bayes-cm.png
 |   +-- neural-net-tf.png
+|   +-- neural-net-keras.png
 +-- *.py
 ```
 
 ## Try It Out
 
 1. Clone the repo to your local machine-  
-`> git clone git://github.com/rockash/Fake-news-Detection`  
+`> git clone git://github.com/rockash/Fake-news-Detection.git`  
 `> cd Fake-news-Detection`
 
 2. Make sure you have all the dependencies installed-  
